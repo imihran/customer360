@@ -62,3 +62,6 @@ output/
 *.csv
 *.json
 *.zip
+
+# ====== agents ======
+agents/
