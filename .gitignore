@@ -1,0 +1,64 @@
+# ====== Python ======
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.log
+.env
+.venv
+venv/
+ENV/
+*.sqlite3
+
+# ====== Jupyter & IPython ======
+.ipynb_checkpoints/
+profile_default/
+*.ipynb
+
+# ====== macOS ======
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ====== Terraform ======
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+crash.log
+
+# ====== dbt ======
+dbt_packages/
+target/
+logs/
+
+# ====== Airflow ======
+airflow/logs/
+airflow/__pycache__/
+*.pid
+
+# ====== AWS ======
+*.pem
+*.key
+.aws/
+
+# ====== IDEs & Editors ======
+.vscode/
+.idea/
+*.swp
+*.swo
+*.tmp
+*.bak
+*.orig
+
+# ====== Project-specific ======
+__cache__/
+output/
+.parquet/
+*.csv
+*.json
+*.zip
