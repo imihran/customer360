@@ -388,3 +388,43 @@ flowchart LR
 | **Prod** | $2k–4k | Full-volume S3 + Snowflake compute |
 
 ---
+
+<a name="p2"></a>
+# ✅ Phase 2 — Terraform Foundations (In Progress)
+
+## 🎯 Objective
+Establish the **core AWS infrastructure foundation** for the **Customer360 (Data God v2)** platform using Terraform — starting with a secure, remote state backend (S3 + DynamoDB) to enable multi-environment, team-safe IaC operations.
+
+---
+
+## 🧩 Step 2.1 — Remote Backend Setup
+
+### 🧱 Resources Created
+| Resource | AWS Service | Purpose |
+|-----------|--------------|----------|
+| `customer360-tfstate-dev` | **S3 Bucket** | Stores Terraform state remotely (versioned, encrypted) |
+| `customer360-tf-lock-dev` | **DynamoDB Table** | Handles Terraform state locking for concurrency safety |
+
+---
+
+### ⚙️ Key Features
+| Feature | Description |
+|----------|-------------|
+| **Remote Backend** | State files stored securely in S3 with DynamoDB lock |
+| **Versioning** | Full state history for recovery or audits |
+| **Encryption** | AES256 server-side encryption enforced |
+| **Public Access Blocked** | Prevents accidental exposure of Terraform state |
+| **Delete Protection** | `prevent_destroy = true` and bucket policy deny deletes |
+| **Tags Applied** | `project=customer360`, `owner=mish`, `cost-center=analytics`, `protected=true` |
+
+---
+
+### 🧠 Architecture Overview
+```
+Local Terraform  →  Remote Backend (S3 + DynamoDB)
+      │
+      ├── Stores .tfstate files remotely
+      └── Manages concurrency with lock table
+```
+
+---
