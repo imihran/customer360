@@ -27,7 +27,7 @@ This project demonstrates **end-to-end data engineering mastery** using AWS, Sno
 | Phase | Description | Status |
 |--------|-------------|--------|
 | 0 | [Environment Setup & Tool Installation](#p0) | ✅ Complete |
-| 1 | [Architecture Blueprint (Mermaid Diagram)](#p1) | ⏳ WIP | 
+| 1 | [Architecture Blueprint (Mermaid Diagram)](#p1) | ✅ Complete | 
 | 2 | [Terraform Foundations (S3, IAM, Glue, Snowflake Stage)](#p2) | ⏳ |
 | 2.5 | [Source Simulation (MySQL, Postgres, Kinesis, Batch)](#p2_5) | ⏳ |
 | 3 | [Ingestion Pipelines (DMS → Kinesis → S3 → Glue)](#p3) | ⏳ |
