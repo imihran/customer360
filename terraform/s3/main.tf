@@ -1,12 +1,4 @@
-// -----------------------------------------------------------------------------
-// main.tf
-// This file defines the Terraform configuration for creating and managing S3
-// buckets used in the data lake architecture. It includes bucket creation,
-// versioning, and tagging to ensure proper organization and lifecycle management.
-// -----------------------------------------------------------------------------
-
-// Specify the required providers and their versions
-terraform {
+    terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -15,46 +7,44 @@ terraform {
   }
 }
 
-// Configure the AWS provider with profile and region
 provider "aws" {
   profile = var.aws_profile
   region  = var.aws_region
 }
 
-// Define local variables for bucket names
 locals {
   bucket_names = [
-    "customer360-raw-${var.env}",       // Raw data bucket
-    "customer360-curated-${var.env}",   // Curated data bucket
-    "customer360-analytics-${var.env}" // Analytics data bucket
+    "customer360-raw-${var.env}",
+    "customer360-curated-${var.env}",
+    "customer360-analytics-${var.env}"
   ]
 }
 
-// Create S3 buckets for the data lake
+# --- Create Buckets ---
 resource "aws_s3_bucket" "data_lake" {
-  for_each      = toset(local.bucket_names) // Iterate over bucket names
-  bucket        = each.key                  // Set bucket name
-  force_destroy = false                     // Prevent accidental deletion
+  for_each      = toset(local.bucket_names)
+  bucket        = each.key
+  force_destroy = false
 
   lifecycle {
-    prevent_destroy = false // Allow bucket deletion if needed
+    prevent_destroy = false
   }
 
   tags = {
-    project      = "customer360"          // Project name
-    environment  = var.env                 // Deployment environment
-    owner        = var.owner              // Owner of the bucket
-    cost-center  = "analytics"           // Cost center for billing
-    zone         = split("-", each.key)[1] // Extract zone from bucket name
+    project      = "customer360"
+    environment  = var.env
+    owner        = "mish"
+    cost-center  = "analytics"
+    zone         = split("-", each.key)[1]
   }
 }
 
-// Enable versioning for the S3 buckets
+# --- Versioning ---
 resource "aws_s3_bucket_versioning" "versioning" {
-  for_each = aws_s3_bucket.data_lake       // Apply versioning to all buckets
-  bucket   = each.value.id                 // Reference bucket ID
+  for_each = aws_s3_bucket.data_lake
+  bucket   = each.value.id
   versioning_configuration {
-    status = "Enabled"                    // Enable versioning
+    status = "Enabled"
   }
 }
 
@@ -77,8 +67,10 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle" {
   rule {
     id     = "lifecycle"
     status = "Enabled"
-    
-    filter{}
+
+    filter {
+      
+    }
 
     transition {
       days          = 30
